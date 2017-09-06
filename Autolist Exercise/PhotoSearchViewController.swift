@@ -13,6 +13,7 @@ class PhotoSearchViewController: UIViewController {
     fileprivate var photos = [Photo]()
     fileprivate lazy var networkService = NetworkService()
     fileprivate let cellIdentifier = "PhotoCell"
+    fileprivate let spacing: CGFloat = 20.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +21,13 @@ class PhotoSearchViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.backgroundColor = UIColor.white
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+            flowLayout.minimumInteritemSpacing = spacing
+            flowLayout.minimumLineSpacing = spacing
+        }
+        
         
         
         if case .phone = traitCollection.userInterfaceIdiom {
@@ -80,7 +88,17 @@ extension PhotoSearchViewController: UICollectionViewDataSource {
 
 extension PhotoSearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 150, height: 150)
+        if case .phone = traitCollection.userInterfaceIdiom {
+            let rightAndLeftSpace = spacing * 2
+            let newSize = collectionView.frame.size.width - rightAndLeftSpace
+            
+            return CGSize(width: newSize, height: newSize)
+        } else {
+            let rightMiddleAndLeftSpace = spacing * 3
+            let newSize = (collectionView.frame.size.width - rightMiddleAndLeftSpace) / 2
+            
+            return CGSize(width: newSize, height: newSize)
+        }
     }
 }
 
