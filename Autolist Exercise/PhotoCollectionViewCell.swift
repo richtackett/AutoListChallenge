@@ -39,6 +39,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     }
     
     func populate(_ photo: Photo) {
-        imageView.kf.setImage(with: photo.makeURL(size: "q"))
+        imageView.kf.setImage(with: photo.imageURL)
     }
 }
