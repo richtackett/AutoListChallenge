@@ -18,16 +18,9 @@ struct Photo {
     let farm: Int
     let server: String
     let secret: String
+    let title: String
     
     var imageURL: URL? {
         return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret).jpg")
     }
-    
-//    func makeURL(size: String) -> URL? { //make size an enum
-//        return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)_\(size).jpg")
-//    }
-//    
-//    func makeURL() -> URL? {
-//        return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret).jpg")
-//    }
 }

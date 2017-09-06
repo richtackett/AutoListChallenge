@@ -34,8 +34,9 @@ fileprivate extension ResponseParser {
             if let id = photoJSON["id"] as? String,
                 let farm = photoJSON["farm"] as? Int,
                 let server = photoJSON["server"] as? String,
-                let secret = photoJSON["secret"] as? String {
-                photos.append(Photo(id: id, farm: farm, server: server, secret: secret))
+                let secret = photoJSON["secret"] as? String,
+                let title = photoJSON["title"] as? String {
+                photos.append(Photo(id: id, farm: farm, server: server, secret: secret, title: title))
             }
         }
         

@@ -71,22 +71,25 @@ extension PhotoSearchViewController: UICollectionViewDataSource {
 
 extension PhotoSearchViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let newSize: CGFloat
         if case .phone = traitCollection.userInterfaceIdiom {
             let rightAndLeftSpace = spacing * 2
-            let newSize = collectionView.frame.size.width - rightAndLeftSpace
-            
-            return CGSize(width: newSize, height: newSize)
+            newSize = collectionView.frame.size.width - rightAndLeftSpace
         } else {
             let rightMiddleAndLeftSpace = spacing * 3
-            let newSize = (collectionView.frame.size.width - rightMiddleAndLeftSpace) / 2
-            
-            return CGSize(width: newSize, height: newSize)
+            newSize = (collectionView.frame.size.width - rightMiddleAndLeftSpace) / 2
         }
+        
+        return CGSize(width: newSize, height: newSize)
     }
 }
 
 extension PhotoSearchViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let photoViewController = PhotoViewController()
+        photoViewController.photo = photos[indexPath.row]
+        navigationController?.pushViewController(photoViewController, animated: true)
+    }
 }
 
 // MARK: - Private Helper Methods
