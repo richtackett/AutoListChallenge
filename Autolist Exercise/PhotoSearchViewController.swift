@@ -15,26 +15,20 @@ class PhotoSearchViewController: UIViewController {
     fileprivate let cellIdentifier = "PhotoCell"
     fileprivate let spacing: CGFloat = 20.0
 
+    override func loadView() {
+        view = UIView(frame: .zero)
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: collectionView, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: collectionView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: collectionView, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        collectionView.backgroundColor = UIColor.white
-        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
-            flowLayout.minimumInteritemSpacing = spacing
-            flowLayout.minimumLineSpacing = spacing
-        }
+        _setupCollectionView()
         
-        
-        
-        if case .phone = traitCollection.userInterfaceIdiom {
-            print("phone")
-        }
-        
-       
         
         networkService.search(text: "Tuba", page: 1) {[weak self] (result) in
             DispatchQueue.main.async {
@@ -54,19 +48,8 @@ class PhotoSearchViewController: UIViewController {
         collectionView.reloadData()
     }
     
-    override func loadView() {
-        view = UIView(frame: .zero)
-        view.addSubview(collectionView)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: collectionView, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: collectionView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: collectionView, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
-    }
-    
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-        print("called willTransition")
+        collectionView.reloadData()
     }
 }
 
@@ -108,6 +91,18 @@ extension PhotoSearchViewController: UICollectionViewDelegate {
 
 // MARK: - Private Helper Methods
 fileprivate extension PhotoSearchViewController {
+    func _setupCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.backgroundColor = UIColor.white
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+            flowLayout.minimumInteritemSpacing = spacing
+            flowLayout.minimumLineSpacing = spacing
+        }
+    }
+    
     func _handleSuccess(_ searchResponse: SearchResponse) {
         photos = searchResponse.photots
         collectionView.reloadData()
