@@ -13,17 +13,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        let _ = CoreDataStack.shared.managedContext
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        
         let navController = UINavigationController(rootViewController: PhotoSearchViewController())
         navController.navigationBar.isTranslucent = false
-        
         window?.rootViewController = navController
-        
         
         return true
     }

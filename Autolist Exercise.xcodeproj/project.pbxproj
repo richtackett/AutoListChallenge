@@ -10,6 +10,11 @@
 		43973B4D9582055683FF8112 /* Pods_Autolist_Exercise.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61203EC2383D5283D0FCD67E /* Pods_Autolist_Exercise.framework */; };
 		4B7809B4ED40BA576FED5B28 /* Pods_Autolist_ExerciseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5A558B7179486FE9FA83F7F /* Pods_Autolist_ExerciseTests.framework */; };
 		506661BD1F60AED200DFFF54 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506661BC1F60AED200DFFF54 /* PhotoViewController.swift */; };
+		506661C01F60DB3B00DFFF54 /* PhotoFavorites.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 506661BE1F60DB3B00DFFF54 /* PhotoFavorites.xcdatamodeld */; };
+		506661C31F60DBE700DFFF54 /* Favorite+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506661C11F60DBE700DFFF54 /* Favorite+CoreDataClass.swift */; };
+		506661C41F60DBE700DFFF54 /* Favorite+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506661C21F60DBE700DFFF54 /* Favorite+CoreDataProperties.swift */; };
+		506661C61F60DC3100DFFF54 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506661C51F60DC3100DFFF54 /* CoreDataStack.swift */; };
+		506661C81F60DD4C00DFFF54 /* PhotoFavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506661C71F60DD4C00DFFF54 /* PhotoFavoritesStore.swift */; };
 		50BEDB631F60224B004CAAED /* PhotoSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEDB621F60224B004CAAED /* PhotoSearchViewController.swift */; };
 		50BEDB651F602548004CAAED /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEDB641F602548004CAAED /* NetworkService.swift */; };
 		50BEDB671F602A02004CAAED /* ResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEDB661F602A02004CAAED /* ResponseParser.swift */; };
@@ -34,6 +39,11 @@
 /* Begin PBXFileReference section */
 		225A2C70E00CD6821252C280 /* Pods-Autolist Exercise.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Autolist Exercise.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Autolist Exercise/Pods-Autolist Exercise.debug.xcconfig"; sourceTree = "<group>"; };
 		506661BC1F60AED200DFFF54 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
+		506661BF1F60DB3B00DFFF54 /* PhotoFavorites.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PhotoFavorites.xcdatamodel; sourceTree = "<group>"; };
+		506661C11F60DBE700DFFF54 /* Favorite+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Favorite+CoreDataClass.swift"; sourceTree = "<group>"; };
+		506661C21F60DBE700DFFF54 /* Favorite+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Favorite+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		506661C51F60DC3100DFFF54 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		506661C71F60DD4C00DFFF54 /* PhotoFavoritesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoFavoritesStore.swift; sourceTree = "<group>"; };
 		50BEDB621F60224B004CAAED /* PhotoSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSearchViewController.swift; sourceTree = "<group>"; };
 		50BEDB641F602548004CAAED /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		50BEDB661F602A02004CAAED /* ResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseParser.swift; sourceTree = "<group>"; };
@@ -108,11 +118,16 @@
 			children = (
 				50FDAAF81F601FBD00F835CD /* AppDelegate.swift */,
 				50FDAAFF1F601FBD00F835CD /* Assets.xcassets */,
+				506661C51F60DC3100DFFF54 /* CoreDataStack.swift */,
+				506661C11F60DBE700DFFF54 /* Favorite+CoreDataClass.swift */,
+				506661C21F60DBE700DFFF54 /* Favorite+CoreDataProperties.swift */,
 				50FDAB041F601FBD00F835CD /* Info.plist */,
 				50FDAB011F601FBD00F835CD /* LaunchScreen.storyboard */,
 				50BEDB641F602548004CAAED /* NetworkService.swift */,
 				50BEDB681F602B0F004CAAED /* Photo.swift */,
 				50BEDB6A1F6084C9004CAAED /* PhotoCollectionViewCell.swift */,
+				506661BE1F60DB3B00DFFF54 /* PhotoFavorites.xcdatamodeld */,
+				506661C71F60DD4C00DFFF54 /* PhotoFavoritesStore.swift */,
 				50BEDB621F60224B004CAAED /* PhotoSearchViewController.swift */,
 				506661BC1F60AED200DFFF54 /* PhotoViewController.swift */,
 				50BEDB661F602A02004CAAED /* ResponseParser.swift */,
@@ -342,9 +357,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				506661C01F60DB3B00DFFF54 /* PhotoFavorites.xcdatamodeld in Sources */,
+				506661C41F60DBE700DFFF54 /* Favorite+CoreDataProperties.swift in Sources */,
+				506661C81F60DD4C00DFFF54 /* PhotoFavoritesStore.swift in Sources */,
 				50BEDB631F60224B004CAAED /* PhotoSearchViewController.swift in Sources */,
 				50BEDB651F602548004CAAED /* NetworkService.swift in Sources */,
 				50FDAAF91F601FBD00F835CD /* AppDelegate.swift in Sources */,
+				506661C31F60DBE700DFFF54 /* Favorite+CoreDataClass.swift in Sources */,
+				506661C61F60DC3100DFFF54 /* CoreDataStack.swift in Sources */,
 				50BEDB671F602A02004CAAED /* ResponseParser.swift in Sources */,
 				506661BD1F60AED200DFFF54 /* PhotoViewController.swift in Sources */,
 				50BEDB691F602B0F004CAAED /* Photo.swift in Sources */,
@@ -566,6 +586,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		506661BE1F60DB3B00DFFF54 /* PhotoFavorites.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				506661BF1F60DB3B00DFFF54 /* PhotoFavorites.xcdatamodel */,
+			);
+			currentVersion = 506661BF1F60DB3B00DFFF54 /* PhotoFavorites.xcdatamodel */;
+			path = PhotoFavorites.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 50FDAAED1F601FBD00F835CD /* Project object */;
 }
