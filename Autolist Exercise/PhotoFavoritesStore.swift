@@ -17,7 +17,7 @@ final class PhotoFavoritesStore {
         favoritesFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Favorite.photoID), photoID)
         
         do {
-            let results = try CoreDataStack.shared.managedContext.fetch(favoritesFetch)
+            let results = try managedContext.fetch(favoritesFetch)
             if results.count > 0 {
                 return true
             } else {
@@ -34,18 +34,18 @@ final class PhotoFavoritesStore {
         favoritesFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Favorite.photoID), photoID)
         
         do {
-            let results = try CoreDataStack.shared.managedContext.fetch(favoritesFetch)
+            let results = try managedContext.fetch(favoritesFetch)
             if results.count > 0 {
                 if let favorite = results.first {
-                    CoreDataStack.shared.managedContext.delete(favorite)
+                    managedContext.delete(favorite)
                 }
                 
             } else {
-                let favorite = Favorite(context: CoreDataStack.shared.managedContext)
+                let favorite = Favorite(context: managedContext)
                 favorite.photoID = photoID
             }
             
-            try CoreDataStack.shared.managedContext.save()
+            try managedContext.save()
             
         } catch let error as NSError {
             print("Fetch error: \(error) description: \(error.userInfo)")
