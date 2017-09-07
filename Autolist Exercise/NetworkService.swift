@@ -20,7 +20,7 @@ final class NetworkService {
     
     func search(text: String, page: Int, completion: @escaping ((Result) -> Void)) {
         guard let urlRequest = _makeRequest(text: text, page: page) else {
-            let error = NSError(domain: "Autolist", code: 100, userInfo: nil)
+            let error = NSError(domain: "Autolist", code: 100, userInfo: [NSLocalizedDescriptionKey: "Could not make URLRequest"])
             completion(.failure(error))
             return
         }
@@ -57,7 +57,7 @@ fileprivate extension NetworkService {
             completion(.failure(error as NSError))
         } else {
             guard let response = response as? HTTPURLResponse else {
-                let error = NSError(domain: "Autolist", code: 102, userInfo: nil)
+                let error = NSError(domain: "Autolist", code: 102, userInfo: [NSLocalizedDescriptionKey: "Response is not proper format"])
                 completion(.failure(error))
                 return
             }
@@ -76,7 +76,7 @@ fileprivate extension NetworkService {
                 response.statusCode < 400 {
                 completion(.success(searchRespone))
             } else {
-                let error = NSError(domain: "Autolist", code: 102, userInfo: nil) //Add user error dictionary
+                let error = NSError(domain: "Autolist", code: 102, userInfo: [NSLocalizedDescriptionKey: "Response is not proper format"])
                 completion(.failure(error))
             }
         }

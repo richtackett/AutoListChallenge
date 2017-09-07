@@ -30,7 +30,7 @@ class PhotoSearchViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: label, attribute: .trailing, multiplier: 1.0, constant: 20).isActive = true
         NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 20).isActive = true
-        NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 60).isActive = true
+        NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 80).isActive = true
         
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +46,7 @@ class PhotoSearchViewController: UIViewController {
         navigationItem.title = "Photo Search"
         _setupCollectionView()
         _setupTextField()
-        label.text = "Searching ..."
+        _setupLabel()
     }
 
     override func didReceiveMemoryWarning() {
@@ -142,6 +142,11 @@ fileprivate extension PhotoSearchViewController {
         textField.becomeFirstResponder()
     }
     
+    func _setupLabel() {
+        label.text = "Searching ..."
+        label.textAlignment = .center
+    }
+    
     func _search(_ text: String) {
         _becomeIdle()
         networkService.search(text: text, page: 1) {[weak self] (result) in
@@ -171,6 +176,8 @@ fileprivate extension PhotoSearchViewController {
     }
     
     func _handleFailure(_ error: NSError) {
-        //show error from ns error in alert
+        let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+        self.present(alert, animated: true)
     }
 }

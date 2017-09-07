@@ -13,6 +13,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     fileprivate let imageView = UIImageView(frame: .zero)
     fileprivate let favoriteButton = UIButton(frame: .zero)
     fileprivate let favoritesStore = PhotoFavoritesStore()
+    fileprivate let favoriteColor = UIColor(colorLiteralRed: 200.0/255.0, green: 98.0/255.0, blue: 80.0/255.0, alpha: 1.0)
     fileprivate var photo: Photo?
     
     override init(frame: CGRect) {
@@ -85,7 +86,7 @@ fileprivate extension PhotoCollectionViewCell {
     
     func _setFavoriteDisplay(isFavorite: Bool) {
         if isFavorite {
-            contentView.backgroundColor = UIColor.red
+            contentView.backgroundColor = favoriteColor
             favoriteButton.setImage(UIImage(named: "solidHeart"), for: .normal)
         } else {
             contentView.backgroundColor = UIColor.white
