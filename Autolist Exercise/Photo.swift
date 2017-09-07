@@ -19,7 +19,7 @@ struct Photo {
     let server: String
     let secret: String
     let title: String
-    var isSelected = false
+    var isFavorite = false
     
     init(id: String, farm: Int, server: String, secret: String, title: String) {
         self.id = id

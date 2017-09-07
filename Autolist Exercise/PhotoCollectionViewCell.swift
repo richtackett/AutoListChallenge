@@ -61,10 +61,10 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             return
         }
         
-        photo.isSelected = !photo.isSelected
+        photo.isFavorite = !photo.isFavorite
         self.photo = photo
         
-        if photo.isSelected {
+        if photo.isFavorite {
             contentView.backgroundColor = UIColor.red
             favoriteButton.setImage(UIImage(named: "solidHeart"), for: .normal)
         } else {

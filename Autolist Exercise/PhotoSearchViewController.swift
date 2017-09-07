@@ -10,6 +10,7 @@ import UIKit
 
 class PhotoSearchViewController: UIViewController {
     fileprivate let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    fileprivate let textField = UITextField(frame: .zero)
     fileprivate var photos = [Photo]()
     fileprivate lazy var networkService = NetworkService()
     fileprivate let cellIdentifier = "PhotoCell"
@@ -17,29 +18,27 @@ class PhotoSearchViewController: UIViewController {
 
     override func loadView() {
         view = UIView(frame: .zero)
+        
+        view.addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: textField, attribute: .trailing, multiplier: 1.0, constant: 20).isActive = true
+        NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 20).isActive = true
+        NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 20).isActive = true
+        
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: collectionView, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: collectionView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: collectionView, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: textField, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.white
+        navigationItem.title = "Photo Search"
         _setupCollectionView()
-        
-        
-        networkService.search(text: "Tuba", page: 1) {[weak self] (result) in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let searchResponse):
-                    self?._handleSuccess(searchResponse)
-                case .failure(let error):
-                    self?._handleFailure(error)
-                }
-            }
-        }
+        _setupTextField()
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,6 +91,27 @@ extension PhotoSearchViewController: UICollectionViewDelegate {
     }
 }
 
+extension PhotoSearchViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let text = textField.text,
+            text.isEmpty == false {
+            networkService.search(text: text, page: 1) {[weak self] (result) in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let searchResponse):
+                        self?._handleSuccess(searchResponse)
+                    case .failure(let error):
+                        self?._handleFailure(error)
+                    }
+                }
+            }
+        }
+        
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
 // MARK: - Private Helper Methods
 fileprivate extension PhotoSearchViewController {
     func _setupCollectionView() {
@@ -104,6 +124,19 @@ fileprivate extension PhotoSearchViewController {
             flowLayout.minimumInteritemSpacing = spacing
             flowLayout.minimumLineSpacing = spacing
         }
+    }
+    
+    func _setupTextField() {
+        textField.backgroundColor = UIColor.lightGray
+        textField.placeholder = "Enter text here"
+        textField.borderStyle = .roundedRect
+        textField.autocorrectionType = .no
+        textField.keyboardType = .default
+        textField.returnKeyType = .done
+        textField.clearButtonMode = .whileEditing;
+        textField.contentVerticalAlignment = .center
+        textField.delegate = self
+        textField.becomeFirstResponder()
     }
     
     func _handleSuccess(_ searchResponse: SearchResponse) {
