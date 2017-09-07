@@ -12,10 +12,45 @@ import Kingfisher
 class PhotoCollectionViewCell: UICollectionViewCell {
     fileprivate let imageView = UIImageView(frame: .zero)
     fileprivate let favoriteButton = UIButton(frame: .zero)
+    fileprivate let favoritesStore = PhotoFavoritesStore()
     fileprivate var photo: Photo?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        _setupCell()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+    
+    func populate(_ photo: Photo) {
+        self.photo = photo
+        self.photo?.isFavorite = favoritesStore.isFavorite(photoID: photo.id)
+        imageView.kf.setImage(with: photo.imageURL)
+        _setFavoriteDisplay(isFavorite: self.photo?.isFavorite ?? false)
+    }
+    
+    func buttonTapped(_ sender : UIButton) {
+        guard var photo = photo else {
+            return
+        }
+        
+        photo.isFavorite = !photo.isFavorite
+        self.photo = photo
+        _setFavoriteDisplay(isFavorite: photo.isFavorite)
+        favoritesStore.saveAsFavorite(photoID: photo.id)
+    }
+}
+
+// MARK: - Private Helper Methods
+fileprivate extension PhotoCollectionViewCell {
+    func _setupCell() {
         contentView.backgroundColor = UIColor.white
         
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
@@ -48,36 +83,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint(item: favoriteButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 40).isActive = true
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.image = nil
-    }
-    
-    func populate(_ photo: Photo) {
-        self.photo = photo
-        imageView.kf.setImage(with: photo.imageURL)
-    }
-    
-    func buttonTapped(_ sender : UIButton) {
-        guard var photo = photo else {
-            return
-        }
-        
-        photo.isFavorite = !photo.isFavorite
-        self.photo = photo
-        
-        if photo.isFavorite {
+    func _setFavoriteDisplay(isFavorite: Bool) {
+        if isFavorite {
             contentView.backgroundColor = UIColor.red
             favoriteButton.setImage(UIImage(named: "solidHeart"), for: .normal)
         } else {
             contentView.backgroundColor = UIColor.white
             favoriteButton.setImage(UIImage(named: "heart"), for: .normal)
         }
-        
-        //call repo here to store in cache
     }
 }

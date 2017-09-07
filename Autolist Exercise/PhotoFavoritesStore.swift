@@ -13,7 +13,7 @@ final class PhotoFavoritesStore {
     fileprivate let managedContext = CoreDataStack.shared.managedContext
     fileprivate let favoritesFetch: NSFetchRequest<Favorite> = Favorite.fetchRequest()
     
-    func isEventFavorite(photoID: String) -> Bool {
+    func isFavorite(photoID: String) -> Bool {
         favoritesFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Favorite.photoID), photoID)
         
         do {
@@ -30,7 +30,7 @@ final class PhotoFavoritesStore {
         }
     }
     
-    func markAsFavorite(photoID: String) {
+    func saveAsFavorite(photoID: String) {
         favoritesFetch.predicate = NSPredicate(format: "%K == %@", #keyPath(Favorite.photoID), photoID)
         
         do {
