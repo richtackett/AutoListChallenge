@@ -11,6 +11,7 @@ import UIKit
 class PhotoSearchViewController: UIViewController {
     fileprivate let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     fileprivate let textField = UITextField(frame: .zero)
+    fileprivate let label = UILabel(frame: .zero)
     fileprivate var photos = [Photo]()
     fileprivate lazy var networkService = NetworkService()
     fileprivate let cellIdentifier = "PhotoCell"
@@ -24,6 +25,12 @@ class PhotoSearchViewController: UIViewController {
         NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: textField, attribute: .trailing, multiplier: 1.0, constant: 20).isActive = true
         NSLayoutConstraint(item: textField, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 20).isActive = true
         NSLayoutConstraint(item: textField, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 20).isActive = true
+        
+        view.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: label, attribute: .trailing, multiplier: 1.0, constant: 20).isActive = true
+        NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 20).isActive = true
+        NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 60).isActive = true
         
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,6 +46,7 @@ class PhotoSearchViewController: UIViewController {
         navigationItem.title = "Photo Search"
         _setupCollectionView()
         _setupTextField()
+        label.text = "Searching ..."
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,16 +107,7 @@ extension PhotoSearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = textField.text,
             text.isEmpty == false {
-            networkService.search(text: text, page: 1) {[weak self] (result) in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let searchResponse):
-                        self?._handleSuccess(searchResponse)
-                    case .failure(let error):
-                        self?._handleFailure(error)
-                    }
-                }
-            }
+            _search(text)
         }
         
         textField.resignFirstResponder()
@@ -141,6 +140,29 @@ fileprivate extension PhotoSearchViewController {
         textField.contentVerticalAlignment = .center
         textField.delegate = self
         textField.becomeFirstResponder()
+    }
+    
+    func _search(_ text: String) {
+        _becomeIdle()
+        networkService.search(text: text, page: 1) {[weak self] (result) in
+            DispatchQueue.main.async {
+                self?._becomeActive()
+                switch result {
+                case .success(let searchResponse):
+                    self?._handleSuccess(searchResponse)
+                case .failure(let error):
+                    self?._handleFailure(error)
+                }
+            }
+        }
+    }
+    
+    func _becomeActive() {
+        collectionView.isHidden = false
+    }
+    
+    func _becomeIdle() {
+        collectionView.isHidden = true
     }
     
     func _handleSuccess(_ searchResponse: SearchResponse) {
