@@ -18,10 +18,17 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         contentView.backgroundColor = UIColor.white
         
+        let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        activityIndicator.color = UIColor.lightGray
+        activityIndicator.startAnimating()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        
         contentView.addSubview(imageView)
         NSLayoutConstraint(item: contentView, attribute: .trailing, relatedBy: .equal, toItem: imageView, attribute: .trailing, multiplier: 1.0, constant: 10).isActive = true
         NSLayoutConstraint(item: imageView, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1.0, constant: 10).isActive = true
@@ -34,7 +41,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         favoriteButton.clipsToBounds = true
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-        
         contentView.addSubview(favoriteButton)
         NSLayoutConstraint(item: contentView, attribute: .trailing, relatedBy: .equal, toItem: favoriteButton, attribute: .trailing, multiplier: 1.0, constant: 20).isActive = true
         NSLayoutConstraint(item: favoriteButton, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1.0, constant: 20).isActive = true
