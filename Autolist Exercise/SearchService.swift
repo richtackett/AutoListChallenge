@@ -15,8 +15,16 @@ enum Result{
 
 final class SearchService {
     fileprivate let apiKey = "de2e69025fb2ec3728d90c48cd9a792c"
-    fileprivate let session = URLSession.shared
     fileprivate let responseParser = ResponseParser()
+    fileprivate let networkHelper: NetworkHelperProtocol
+    
+    init(networkHelper: NetworkHelperProtocol) {
+        self.networkHelper = networkHelper
+    }
+    
+    convenience init() {
+        self.init(networkHelper: NetworkHelper())
+    }
     
     func search(text: String, page: Int, completion: @escaping ((Result) -> Void)) {
         guard let urlRequest = _makeRequest(text: text, page: page) else {
@@ -25,14 +33,11 @@ final class SearchService {
             return
         }
         
-        let task = session.dataTask(with: urlRequest) {[weak self] (data, response, error) in
+        networkHelper.sendRequest(urlRequest: urlRequest) {[weak self] (data, response, error) in
             self?._handleRespone(data: data, response: response, error: error, completion: completion)
         }
-        
-        task.resume()
     }
 }
-
 
 // MARK: Private Helper Methods
 fileprivate extension SearchService {
