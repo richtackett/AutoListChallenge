@@ -13,7 +13,7 @@ class PhotoSearchViewController: UIViewController {
     fileprivate let textField = UITextField(frame: .zero)
     fileprivate let label = UILabel(frame: .zero)
     fileprivate var photos = [Photo]()
-    fileprivate lazy var networkService = NetworkService()
+    fileprivate lazy var searchService = SearchService()
     fileprivate let cellIdentifier = "PhotoCell"
     fileprivate let spacing: CGFloat = 20.0
     fileprivate var totalCount: Int = 0
@@ -179,7 +179,7 @@ fileprivate extension PhotoSearchViewController {
     }
     
     func _search(_ text: String) {
-        networkService.search(text: text, page: currentPage) {[weak self] (result) in
+        searchService.search(text: text, page: currentPage) {[weak self] (result) in
             DispatchQueue.main.async {
                 self?._showCollectionView()
                 switch result {

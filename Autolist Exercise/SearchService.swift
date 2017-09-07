@@ -1,5 +1,5 @@
 //
-//  NetworkService.swift
+//  SearchService.swift
 //  Autolist Exercise
 //
 //  Created by RICHARD TACKETT on 9/6/17.
@@ -13,7 +13,7 @@ enum Result{
     case failure(NSError)
 }
 
-final class NetworkService {
+final class SearchService {
     fileprivate let apiKey = "de2e69025fb2ec3728d90c48cd9a792c"
     fileprivate let session = URLSession.shared
     fileprivate let responseParser = ResponseParser()
@@ -35,7 +35,7 @@ final class NetworkService {
 
 
 // MARK: Private Helper Methods
-fileprivate extension NetworkService {
+fileprivate extension SearchService {
     func _makeRequest(text: String, page: Int) -> URLRequest? {
         guard let queryString = text.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return nil
