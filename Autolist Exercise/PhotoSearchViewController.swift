@@ -16,6 +16,8 @@ class PhotoSearchViewController: UIViewController {
     fileprivate lazy var networkService = NetworkService()
     fileprivate let cellIdentifier = "PhotoCell"
     fileprivate let spacing: CGFloat = 20.0
+    fileprivate var totalCount: Int = 0
+    fileprivate var currentPage: Int = 1
 
     override func loadView() {
         view = UIView(frame: .zero)
@@ -71,6 +73,20 @@ extension PhotoSearchViewController: UICollectionViewDataSource {
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "footer", for: indexPath)
+        
+        if let photoFooterView = footerView as? PhotoFooterReusableView {
+            if totalCount == photos.count {
+                photoFooterView.activityIndicator.stopAnimating()
+            } else {
+                photoFooterView.activityIndicator.startAnimating()
+            }
+        }
+        
+        return footerView
+    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
@@ -100,6 +116,15 @@ extension PhotoSearchViewController: UICollectionViewDelegate {
         photoViewController.photo = photos[indexPath.row]
         navigationController?.pushViewController(photoViewController, animated: true)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let text = textField.text else { return }
+        
+        if (indexPath.row == photos.count - 1) && (totalCount != photos.count) {
+            currentPage = currentPage + 1
+            _search(text)
+        }
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -107,6 +132,7 @@ extension PhotoSearchViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let text = textField.text,
             text.isEmpty == false {
+            currentPage = 1
             _search(text)
         }
         
@@ -121,11 +147,13 @@ fileprivate extension PhotoSearchViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        collectionView.register(PhotoFooterReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: "footer")
         collectionView.backgroundColor = UIColor.white
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
             flowLayout.minimumInteritemSpacing = spacing
             flowLayout.minimumLineSpacing = spacing
+            flowLayout.footerReferenceSize = CGSize(width: 300, height: 40)
         }
     }
     
@@ -149,7 +177,7 @@ fileprivate extension PhotoSearchViewController {
     
     func _search(_ text: String) {
         _becomeIdle()
-        networkService.search(text: text, page: 1) {[weak self] (result) in
+        networkService.search(text: text, page: currentPage) {[weak self] (result) in
             DispatchQueue.main.async {
                 self?._becomeActive()
                 switch result {
@@ -167,11 +195,18 @@ fileprivate extension PhotoSearchViewController {
     }
     
     func _becomeIdle() {
-        collectionView.isHidden = true
+//        collectionView.isHidden = true
     }
     
     func _handleSuccess(_ searchResponse: SearchResponse) {
-        photos = searchResponse.photots
+        totalCount = searchResponse.totalCount
+    
+        if currentPage == 1 {
+            photos = searchResponse.photots
+        } else {
+            photos += searchResponse.photots
+        }
+        
         collectionView.reloadData()
     }
     

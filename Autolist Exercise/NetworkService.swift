@@ -41,7 +41,7 @@ fileprivate extension NetworkService {
             return nil
         }
         
-        let path = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=\(queryString)&per_page=20&format=json&nojsoncallback=1"
+        let path = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=\(queryString)&page=\(page)&per_page=20&format=json&nojsoncallback=1"
         guard let url = URL(string: path) else {
             return nil
         }

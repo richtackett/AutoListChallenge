@@ -15,6 +15,7 @@
 		506661C41F60DBE700DFFF54 /* Favorite+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506661C21F60DBE700DFFF54 /* Favorite+CoreDataProperties.swift */; };
 		506661C61F60DC3100DFFF54 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506661C51F60DC3100DFFF54 /* CoreDataStack.swift */; };
 		506661C81F60DD4C00DFFF54 /* PhotoFavoritesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506661C71F60DD4C00DFFF54 /* PhotoFavoritesStore.swift */; };
+		506661CA1F60EDBA00DFFF54 /* PhotoFooterReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506661C91F60EDBA00DFFF54 /* PhotoFooterReusableView.swift */; };
 		50BEDB631F60224B004CAAED /* PhotoSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEDB621F60224B004CAAED /* PhotoSearchViewController.swift */; };
 		50BEDB651F602548004CAAED /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEDB641F602548004CAAED /* NetworkService.swift */; };
 		50BEDB671F602A02004CAAED /* ResponseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEDB661F602A02004CAAED /* ResponseParser.swift */; };
@@ -44,6 +45,7 @@
 		506661C21F60DBE700DFFF54 /* Favorite+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Favorite+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		506661C51F60DC3100DFFF54 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		506661C71F60DD4C00DFFF54 /* PhotoFavoritesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoFavoritesStore.swift; sourceTree = "<group>"; };
+		506661C91F60EDBA00DFFF54 /* PhotoFooterReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoFooterReusableView.swift; sourceTree = "<group>"; };
 		50BEDB621F60224B004CAAED /* PhotoSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSearchViewController.swift; sourceTree = "<group>"; };
 		50BEDB641F602548004CAAED /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		50BEDB661F602A02004CAAED /* ResponseParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseParser.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				50BEDB621F60224B004CAAED /* PhotoSearchViewController.swift */,
 				506661BC1F60AED200DFFF54 /* PhotoViewController.swift */,
 				50BEDB661F602A02004CAAED /* ResponseParser.swift */,
+				506661C91F60EDBA00DFFF54 /* PhotoFooterReusableView.swift */,
 			);
 			path = "Autolist Exercise";
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 			files = (
 				506661C01F60DB3B00DFFF54 /* PhotoFavorites.xcdatamodeld in Sources */,
 				506661C41F60DBE700DFFF54 /* Favorite+CoreDataProperties.swift in Sources */,
+				506661CA1F60EDBA00DFFF54 /* PhotoFooterReusableView.swift in Sources */,
 				506661C81F60DD4C00DFFF54 /* PhotoFavoritesStore.swift in Sources */,
 				50BEDB631F60224B004CAAED /* PhotoSearchViewController.swift in Sources */,
 				50BEDB651F602548004CAAED /* NetworkService.swift in Sources */,
