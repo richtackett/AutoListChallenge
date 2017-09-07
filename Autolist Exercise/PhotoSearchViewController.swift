@@ -54,10 +54,12 @@ class PhotoSearchViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         photos = []
+        totalCount = 0
         collectionView.reloadData()
     }
     
-    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         collectionView.reloadData()
     }
 }
@@ -133,6 +135,7 @@ extension PhotoSearchViewController: UITextFieldDelegate {
         if let text = textField.text,
             text.isEmpty == false {
             currentPage = 1
+            _showProgressLabel()
             _search(text)
         }
         
@@ -176,10 +179,9 @@ fileprivate extension PhotoSearchViewController {
     }
     
     func _search(_ text: String) {
-        _becomeIdle()
         networkService.search(text: text, page: currentPage) {[weak self] (result) in
             DispatchQueue.main.async {
-                self?._becomeActive()
+                self?._showCollectionView()
                 switch result {
                 case .success(let searchResponse):
                     self?._handleSuccess(searchResponse)
@@ -190,12 +192,12 @@ fileprivate extension PhotoSearchViewController {
         }
     }
     
-    func _becomeActive() {
+    func _showCollectionView() {
         collectionView.isHidden = false
     }
     
-    func _becomeIdle() {
-//        collectionView.isHidden = true
+    func _showProgressLabel() {
+        collectionView.isHidden = true
     }
     
     func _handleSuccess(_ searchResponse: SearchResponse) {
