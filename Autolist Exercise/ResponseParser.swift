@@ -13,13 +13,14 @@ final class ResponseParser {
         guard let container = JSON["photos"] as? [String: Any],
             let totalString = container["total"] as? String,
             let total = Int(totalString),
-            let photos = container["photo"] as? [[String: Any]] else {
+            let photosJSON = container["photo"] as? [[String: Any]],
+            let photos = _getPhotos(photosJSON: photosJSON) else {
                 return nil
         }
         
         var searchResponse = SearchResponse()
         searchResponse.totalCount = total
-        searchResponse.photots = _getPhotos(photosJSON: photos)
+        searchResponse.photots = photos
         
         return searchResponse
     }
@@ -27,7 +28,7 @@ final class ResponseParser {
 
 // MARK: - Private Helper Method
 fileprivate extension ResponseParser {
-    func _getPhotos(photosJSON: [[String: Any]]) -> [Photo] {
+    func _getPhotos(photosJSON: [[String: Any]]) -> [Photo]? {
         var photos = [Photo]()
         
         for photoJSON in photosJSON {
@@ -40,6 +41,6 @@ fileprivate extension ResponseParser {
             }
         }
         
-        return photos
+        return photos.count == 0 ? nil : photos
     }
 }

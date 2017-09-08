@@ -10,7 +10,7 @@ import XCTest
 @testable import Autolist_Exercise
 
 class SearchServiceTests: XCTestCase {
-    func testSearch_success() {
+    func test_search_success() {
         //Given
         class MockNetworkHelper: NetworkHelperProtocol {
             func sendRequest(urlRequest: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
@@ -41,7 +41,7 @@ class SearchServiceTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func testSearch_makeRequest_failure() {
+    func test_search_makeRequest_failure() {
         //Given
         class MockNetworkHelper: NetworkHelperProtocol {
             func sendRequest(urlRequest: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
@@ -72,7 +72,7 @@ class SearchServiceTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func testSearch_response_failure() {
+    func test_search_response_failure() {
         //Given
         class MockNetworkHelper: NetworkHelperProtocol {
             func sendRequest(urlRequest: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
@@ -103,7 +103,7 @@ class SearchServiceTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func testSearch_jsonFormat_failure() {
+    func test_search_jsonFormat_failure() {
         //Given
         class MockNetworkHelper: NetworkHelperProtocol {
             func sendRequest(urlRequest: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
@@ -134,7 +134,7 @@ class SearchServiceTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func testSearch_urlResponse_failure() {
+    func test_search_urlResponse_failure() {
         //Given
         class MockNetworkHelper: NetworkHelperProtocol {
             func sendRequest(urlRequest: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
@@ -156,7 +156,6 @@ class SearchServiceTests: XCTestCase {
             case .success:
                 XCTFail()
             case .failure(let error):
-                
                 searchExpectation.fulfill()
                 XCTAssertEqual(error.code, 101)
             }
