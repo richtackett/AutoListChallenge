@@ -17,13 +17,16 @@ final class SearchService {
     fileprivate let apiKey = "de2e69025fb2ec3728d90c48cd9a792c"
     fileprivate let responseParser = ResponseParser()
     fileprivate let networkHelper: NetworkHelperProtocol
+    fileprivate var path: String
+    static fileprivate let flickerPath = "https://api.flickr.com/services/rest/"
     
-    init(networkHelper: NetworkHelperProtocol) {
+    init(networkHelper: NetworkHelperProtocol, path: String) {
         self.networkHelper = networkHelper
+        self.path = path
     }
     
     convenience init() {
-        self.init(networkHelper: NetworkHelper())
+        self.init(networkHelper: NetworkHelper(), path: SearchService.flickerPath)
     }
     
     func search(text: String, page: Int, completion: @escaping ((Result) -> Void)) {
@@ -46,8 +49,8 @@ fileprivate extension SearchService {
             return nil
         }
         
-        let path = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=\(queryString)&page=\(page)&per_page=20&format=json&nojsoncallback=1"
-        guard let url = URL(string: path) else {
+        let searchPath = "\(path)?method=flickr.photos.search&api_key=\(apiKey)&text=\(queryString)&page=\(page)&per_page=20&format=json&nojsoncallback=1"
+        guard let url = URL(string: searchPath) else {
             return nil
         }
         
@@ -62,7 +65,7 @@ fileprivate extension SearchService {
             completion(.failure(error as NSError))
         } else {
             guard let response = response as? HTTPURLResponse else {
-                let error = NSError(domain: "Autolist", code: 102, userInfo: [NSLocalizedDescriptionKey: "Response is not proper format"])
+                let error = NSError(domain: "Autolist", code: 101, userInfo: [NSLocalizedDescriptionKey: "Response is not proper format"])
                 completion(.failure(error))
                 return
             }
@@ -75,7 +78,6 @@ fileprivate extension SearchService {
                     jsonDictionary = dict
                 }
             }
-            
             
             if let searchRespone = responseParser.parse(JSON: jsonDictionary),
                 response.statusCode < 400 {

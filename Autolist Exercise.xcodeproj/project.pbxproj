@@ -23,6 +23,7 @@
 		50BEDB6B1F6084C9004CAAED /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BEDB6A1F6084C9004CAAED /* PhotoCollectionViewCell.swift */; };
 		50DE503C1F62102400BF893D /* NetworkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DE503B1F62102400BF893D /* NetworkHelper.swift */; };
 		50DE503E1F6210D100BF893D /* SearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DE503D1F6210D100BF893D /* SearchServiceTests.swift */; };
+		50DE50401F6218D000BF893D /* ResponseParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DE503F1F6218D000BF893D /* ResponseParserTests.swift */; };
 		50FDAAF91F601FBD00F835CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FDAAF81F601FBD00F835CD /* AppDelegate.swift */; };
 		50FDAB001F601FBD00F835CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50FDAAFF1F601FBD00F835CD /* Assets.xcassets */; };
 		50FDAB031F601FBD00F835CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 50FDAB011F601FBD00F835CD /* LaunchScreen.storyboard */; };
@@ -54,6 +55,7 @@
 		50BEDB6A1F6084C9004CAAED /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		50DE503B1F62102400BF893D /* NetworkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkHelper.swift; sourceTree = "<group>"; };
 		50DE503D1F6210D100BF893D /* SearchServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchServiceTests.swift; sourceTree = "<group>"; };
+		50DE503F1F6218D000BF893D /* ResponseParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseParserTests.swift; sourceTree = "<group>"; };
 		50FDAAF51F601FBD00F835CD /* Autolist Exercise.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Autolist Exercise.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50FDAAF81F601FBD00F835CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		50FDAAFF1F601FBD00F835CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				50FDAB0F1F601FBD00F835CD /* Info.plist */,
+				50DE503F1F6218D000BF893D /* ResponseParserTests.swift */,
 				50DE503D1F6210D100BF893D /* SearchServiceTests.swift */,
 			);
 			path = "Autolist ExerciseTests";
@@ -385,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50DE503E1F6210D100BF893D /* SearchServiceTests.swift in Sources */,
+				50DE50401F6218D000BF893D /* ResponseParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
