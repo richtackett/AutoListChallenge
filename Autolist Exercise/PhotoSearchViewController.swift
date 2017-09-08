@@ -161,7 +161,7 @@ fileprivate extension PhotoSearchViewController {
     }
     
     func _setupTextField() {
-        textField.backgroundColor = UIColor.lightGray
+        textField.backgroundColor = UIColor.white
         textField.placeholder = "Enter text here"
         textField.borderStyle = .roundedRect
         textField.autocorrectionType = .no
