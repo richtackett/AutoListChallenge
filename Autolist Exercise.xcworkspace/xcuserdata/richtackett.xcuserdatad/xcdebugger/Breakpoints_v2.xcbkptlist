@@ -19,5 +19,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Autolist Exercise/ResponseParser.swift"
+            timestampString = "526521818.68507"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "parse(JSON:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Autolist_Exercise.ResponseParser.parse (JSON : Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; Swift.Optional&lt;Autolist_Exercise.SearchResponse&gt;"
+                  moduleName = "Autolist Exercise"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/richtackett/Development/Autolist%20Exercise/Autolist%20Exercise/ResponseParser.swift"
+                  timestampString = "526522158.054397"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "38">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Autolist_Exercise.ResponseParser.parse (JSON : Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; Swift.Optional&lt;Autolist_Exercise.SearchResponse&gt;"
+                  moduleName = "Autolist Exercise"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/richtackett/Development/Autolist%20Exercise/Autolist%20Exercise/ResponseParser.swift"
+                  timestampString = "526522158.056435"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "13"
+                  endingLineNumber = "13"
+                  offsetFromSymbolStart = "357">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
